@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Voltra — Order confirmed</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="success">
+<header id="site-header" class="site-header"></header>
+
+<main class="container">
+  <div id="success-root" class="form-card form-wide" style="text-align:center;">
+    <p>Loading…</p>
+  </div>
+</main>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="js/api.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/main.js"></script>
+<script>
+async function loadSuccess() {
+  const root = document.getElementById("success-root");
+  const id = new URLSearchParams(window.location.search).get("id");
+  try {
+    const { order } = await Api.order(id);
+    root.innerHTML = `
+      <span class="eyebrow">Order #${order.id}</span>
+      <h2>Thanks — it's on its way to the warehouse for packing.</h2>
+      <p style="color:#555;">A confirmation would normally be emailed to you. Here's what you ordered:</p>
+      <div style="text-align:left;margin:22px 0;">
+        ${order.items.map(i => `
+          <div class="summary-row"><span>${i.name} &times; ${i.quantity}</span><span>${formatPrice(i.price_cents * i.quantity)}</span></div>
+        `).join("")}
+        <div class="summary-row total"><span>Total</span><span>${formatPrice(order.total_cents)}</span></div>
+      </div>
+      <p style="color:#555;">Shipping to ${order.shipping_address}, ${order.shipping_city} ${order.shipping_zip}</p>
+      <a href="index.html" class="btn btn-primary" style="margin-top:16px;">Continue shopping</a>
+    `;
+  } catch (err) {
+    root.innerHTML = `<div class="empty-state">Couldn't load that order: ${err.message}</div>`;
+  }
+}
+document.addEventListener("DOMContentLoaded", loadSuccess);
+</script>
+</body>
+</html>

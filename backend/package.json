@@ -1,0 +1,22 @@
+{
+  "name": "voltra-backend",
+  "version": "1.0.0",
+  "description": "Backend API for the Voltra plant shop (Express + SQLite)",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node seed.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.2",
+    "jsonwebtoken": "^9.0.3"
+  }
+}
