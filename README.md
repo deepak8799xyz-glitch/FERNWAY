@@ -34,7 +34,23 @@ voltra/
     ├── login.html / register.html
     ├── css/style.css
     └── js/  (api.js, cart.js, main.js, and one file per page)
-```
+    ## 📸 Screenshots
+
+### 🏠 Home Page
+
+![Home](frontend/screenshots/home.png)
+
+### 🔐 Login Page
+
+![Login](frontend/screenshots/login.png)
+
+### 🌱 Products Page
+
+![Products](frontend/screenshots/products.png)
+
+### 🛒 Cart Page
+
+![Cart](frontend/screenshots/cart.png)
 
 ## Run it locally
 
