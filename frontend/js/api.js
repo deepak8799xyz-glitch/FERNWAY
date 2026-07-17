@@ -3,7 +3,7 @@
 // "/api/..." path always reaches it, whether you open it via the
 // backend's static server or host it separately (just set API_BASE).
 
-const API_BASE = ""; // e.g. "http://localhost:4000" if serving frontend separately
+const API_BASE = "https://fernway.onrender.com"; // e.g. "http://localhost:4000" if serving frontend separately
 
 const Api = {
   token() {

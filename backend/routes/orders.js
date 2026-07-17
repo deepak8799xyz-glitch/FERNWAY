@@ -123,7 +123,8 @@ router.post("/", async (req, res) => {
       order: { id: orderId, total_cents: total, payment_method },
       razorpay: { orderId: rpOrder.id, amount: rpOrder.amount, currency: rpOrder.currency, keyId: RAZORPAY_KEY_ID },
     });
-  } catch (err) {
+ } catch (err) {
+    console.error("Razorpay order creation failed:", err);
     res.status(502).json({ error: "Could not start the payment. Please try again." });
   }
 });
