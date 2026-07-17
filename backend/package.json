@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Backend API for the Voltra plant shop (Express + SQLite)",
   "main": "server.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "start": "node server.js",
     "seed": "node seed.js",
