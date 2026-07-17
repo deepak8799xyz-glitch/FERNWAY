@@ -44,7 +44,7 @@ async function loadOrders() {
       <div class="order-card">
         <div class="order-head">
           <span>Order #${o.id} — ${new Date(o.created_at).toLocaleDateString()}</span>
-          <span>${o.status}</span>
+          <span>${o.status} · ${o.payment_method === "razorpay" ? "Paid online" : "Cash on delivery"} (${o.payment_status})</span>
         </div>
         ${o.items.map(i => `
           <div class="summary-row"><span>${i.name} &times; ${i.quantity}</span><span>${formatPrice(i.price_cents * i.quantity)}</span></div>

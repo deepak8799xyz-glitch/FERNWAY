@@ -2,7 +2,8 @@
 // formatting helpers used by every page.
 
 function formatPrice(cents) {
-  return `$${(cents / 100).toFixed(2)}`;
+  const rupees = cents / 100;
+  return `₹${rupees.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
 function showToast(message) {
@@ -28,6 +29,7 @@ function renderHeader(activePage) {
   const user = Api.currentUser();
   const nav = [
     { href: "index.html", label: "Shop", key: "shop" },
+    { href: "contact.html", label: "Contact", key: "contact" },
   ];
 
   document.getElementById("site-header").innerHTML = `
@@ -68,7 +70,7 @@ function renderFooter() {
   el.innerHTML = `
     <div class="container">
       <span>Voltra — electronics and gadgets, shipped with care.</span>
-      <span>&copy; ${new Date().getFullYear()} Voltra. A demo storefront.</span>
+      <span><a href="contact.html" style="color:inherit;">Contact us</a> · support@voltra-shop.example · +91 120 456 7890</span>
     </div>
   `;
 }

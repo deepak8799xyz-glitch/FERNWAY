@@ -3,7 +3,7 @@
 // "/api/..." path always reaches it, whether you open it via the
 // backend's static server or host it separately (just set API_BASE).
 
-const API_BASE = ""; // e.g. "https://fernway.onrender.com" if serving frontend separately
+const API_BASE = ""; // e.g. "http://localhost:4000" if serving frontend separately
 
 const Api = {
   token() {
@@ -78,10 +78,19 @@ const Api = {
   placeOrder(payload) {
     return this.request(`/api/orders`, { method: "POST", body: payload, auth: true });
   },
+  paymentConfig() {
+    return this.request(`/api/orders/payment-config`, { auth: true });
+  },
+  verifyPayment(orderId, payload) {
+    return this.request(`/api/orders/${orderId}/verify-payment`, { method: "POST", body: payload, auth: true });
+  },
   myOrders() {
     return this.request(`/api/orders`, { auth: true });
   },
   order(id) {
     return this.request(`/api/orders/${id}`, { auth: true });
+  },
+  sendContactMessage(payload) {
+    return this.request(`/api/contact`, { method: "POST", body: payload });
   },
 };

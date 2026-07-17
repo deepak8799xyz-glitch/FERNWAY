@@ -37,15 +37,19 @@ CREATE TABLE IF NOT EXISTS products (
 );
 
 CREATE TABLE IF NOT EXISTS orders (
-  id           INTEGER PRIMARY KEY AUTOINCREMENT,
-  user_id      INTEGER NOT NULL REFERENCES users(id),
-  status       TEXT NOT NULL DEFAULT 'placed',
-  total_cents  INTEGER NOT NULL,
-  shipping_name    TEXT NOT NULL,
-  shipping_address TEXT NOT NULL,
-  shipping_city    TEXT NOT NULL,
-  shipping_zip     TEXT NOT NULL,
-  created_at   TEXT NOT NULL DEFAULT (datetime('now'))
+  id                 INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id            INTEGER NOT NULL REFERENCES users(id),
+  status             TEXT NOT NULL DEFAULT 'placed',
+  total_cents        INTEGER NOT NULL,
+  shipping_name      TEXT NOT NULL,
+  shipping_address   TEXT NOT NULL,
+  shipping_city      TEXT NOT NULL,
+  shipping_zip       TEXT NOT NULL,
+  payment_method     TEXT NOT NULL DEFAULT 'cod',
+  payment_status     TEXT NOT NULL DEFAULT 'unpaid',
+  razorpay_order_id  TEXT,
+  razorpay_payment_id TEXT,
+  created_at         TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
 CREATE TABLE IF NOT EXISTS order_items (
@@ -55,6 +59,14 @@ CREATE TABLE IF NOT EXISTS order_items (
   name        TEXT NOT NULL,
   price_cents INTEGER NOT NULL,
   quantity    INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS contact_messages (
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  name       TEXT NOT NULL,
+  email      TEXT NOT NULL,
+  message    TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 `);
 

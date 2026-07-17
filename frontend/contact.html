@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Voltra — Contact us</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="contact">
+<header id="site-header" class="site-header"></header>
+
+<main class="container">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">We're here to help</span>
+      <h2>Contact us</h2>
+    </div>
+  </div>
+
+  <div class="contact-layout">
+    <div class="contact-info">
+      <div class="contact-block">
+        <span class="eyebrow">Email</span>
+        <p><a href="mailto:support@voltra-shop.example">support@voltra-shop.example</a></p>
+      </div>
+      <div class="contact-block">
+        <span class="eyebrow">Phone</span>
+        <p><a href="tel:+911204567890">+91 120 456 7890</a></p>
+        <p class="stock-note">Mon–Sat, 10am–7pm IST</p>
+      </div>
+      <div class="contact-block">
+        <span class="eyebrow">Store address</span>
+        <p>Voltra Electronics<br />4th Floor, Cyber Plaza<br />Amroha, Uttar Pradesh 244221<br />India</p>
+      </div>
+      <div class="contact-block">
+        <span class="eyebrow">Order support</span>
+        <p class="stock-note">For order issues, please include your order number — you can find it on the "My orders" page.</p>
+      </div>
+    </div>
+
+    <div class="form-card form-wide" style="margin:0;">
+      <h3>Send us a message</h3>
+      <div class="form-error" id="form-error"></div>
+      <div class="form-success" id="form-success">Thanks — we'll get back to you within one business day.</div>
+      <form id="contact-form">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" required />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" required />
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="contact-submit">Send message</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="js/api.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.getElementById("contact-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById("contact-submit");
+  const errorEl = document.getElementById("form-error");
+  const successEl = document.getElementById("form-success");
+  errorEl.classList.remove("show");
+  successEl.classList.remove("show");
+  btn.disabled = true;
+  btn.textContent = "Sending…";
+
+  try {
+    await Api.sendContactMessage({
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      message: document.getElementById("message").value,
+    });
+    successEl.classList.add("show");
+    document.getElementById("contact-form").reset();
+  } catch (err) {
+    errorEl.textContent = err.message;
+    errorEl.classList.add("show");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Send message";
+  }
+});
+</script>
+</body>
+</html>

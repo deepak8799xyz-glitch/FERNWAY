@@ -1,6 +1,44 @@
-// shop.js — loads categories + products for the homepage grid.
+// shop.js — powers the homepage: category showcase, category filters,
+// search, and the product grid.
 
 let activeCategory = "";
+let searchQuery = "";
+let searchDebounce = null;
+
+async function loadCategoryShowcase() {
+  const wrap = document.getElementById("category-showcase-grid");
+  try {
+    const { products } = await Api.products();
+    const byCategory = {};
+    products.forEach((p) => {
+      if (!byCategory[p.category]) byCategory[p.category] = { image: p.image_url, count: 0 };
+      byCategory[p.category].count += 1;
+    });
+
+    wrap.innerHTML = Object.entries(byCategory)
+      .map(
+        ([cat, info]) => `
+        <button class="category-tile" data-category="${cat}">
+          <img src="${info.image}" alt="${cat}" loading="lazy" />
+          <span class="category-tile-label">
+            <strong>${cat}</strong>
+            <span>${info.count} item${info.count === 1 ? "" : "s"}</span>
+          </span>
+        </button>
+      `
+      )
+      .join("");
+
+    wrap.querySelectorAll(".category-tile").forEach((tile) => {
+      tile.addEventListener("click", () => {
+        selectCategory(tile.dataset.category);
+        document.getElementById("shop").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  } catch (err) {
+    wrap.innerHTML = "";
+  }
+}
 
 async function loadCategories() {
   const wrap = document.getElementById("category-filters");
@@ -27,13 +65,28 @@ function selectCategory(cat) {
   loadProducts();
 }
 
+function setupSearch() {
+  const input = document.getElementById("search-input");
+  input.addEventListener("input", () => {
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(() => {
+      searchQuery = input.value.trim();
+      loadProducts();
+    }, 300);
+  });
+}
+
 async function loadProducts() {
   const grid = document.getElementById("product-grid");
   grid.innerHTML = "<p>Loading products…</p>";
   try {
-    const { products } = await Api.products(activeCategory ? { category: activeCategory } : {});
+    const params = {};
+    if (activeCategory) params.category = activeCategory;
+    if (searchQuery) params.q = searchQuery;
+
+    const { products } = await Api.products(params);
     if (products.length === 0) {
-      grid.innerHTML = `<div class="empty-state">Nothing here yet — check back soon.</div>`;
+      grid.innerHTML = `<div class="empty-state">Nothing matches that search — try a different term or category.</div>`;
       return;
     }
     grid.innerHTML = products.map(productCard).join("");
@@ -73,6 +126,7 @@ function productCard(p) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  await loadCategories();
+  setupSearch();
+  await Promise.all([loadCategoryShowcase(), loadCategories()]);
   await loadProducts();
 });

@@ -73,10 +73,49 @@ const products = [
     description: "Fast-charge two devices at once with enough capacity for multiple full phone charges.",
     price_cents: 4499, stock: 50, care_level: "1-year warranty",
     image_url: "https://images.unsplash.com/photo-1609592806596-4f1b5c9f7a4e?w=800&q=80" },
-  { name: "Junction 7-in-1 USB-C Hub", slug: "junction-usb-c-hub", category: "Accessories",
-    description: "HDMI, SD card, USB-A, and 100W pass-through charging from a single compact hub.",
-    price_cents: 5499, stock: 33, care_level: "1-year warranty",
-    image_url: "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=800&q=80" }
+  // Phones
+  { name: "Voltra Pulse X13", slug: "voltra-pulse-x13", category: "Phones",
+    description: "6.5-inch OLED display, triple camera system, and all-day battery life.",
+    price_cents: 89999, stock: 20, care_level: "1-year warranty",
+    image_url: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&q=80" },
+  { name: "Voltra Pulse X13 Mini", slug: "voltra-pulse-x13-mini", category: "Phones",
+    description: "The same X13 experience in a smaller, one-hand-friendly frame.",
+    price_cents: 74999, stock: 24, care_level: "1-year warranty",
+    image_url: "https://images.unsplash.com/photo-1592286927505-1def25115558?w=800&q=80" },
+  { name: "NovaPhone Lite 5G", slug: "novaphone-lite-5g", category: "Phones",
+    description: "An affordable 5G phone with a 5000mAh battery and a smooth 90Hz display.",
+    price_cents: 39999, stock: 30, care_level: "1-year warranty",
+    image_url: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&q=80" },
+
+  // More Audio
+  { name: "Bassline Over-Ear DJ Headphones", slug: "bassline-dj-headphones", category: "Audio",
+    description: "Swiveling ear cups, coiled cable included, and deep bass tuned for mixing.",
+    price_cents: 15999, stock: 18, care_level: "1-year warranty",
+    image_url: "https://images.unsplash.com/photo-1487215078519-e21cc028cb29?w=800&q=80" },
+
+  // More Computing
+  { name: "Ridge 16 Pro Laptop", slug: "ridge-16-pro-laptop", category: "Computing",
+    description: "16-inch creator laptop with a discrete GPU, 32GB RAM, and a 2TB SSD.",
+    price_cents: 149999, stock: 6, care_level: "2-year warranty",
+    image_url: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&q=80" },
+  { name: "Compact 13 Chromebook", slug: "compact-13-chromebook", category: "Computing",
+    description: "Light, fast-booting, and built for browsing, docs, and streaming on the go.",
+    price_cents: 34999, stock: 22, care_level: "1-year warranty",
+    image_url: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=800&q=80" },
+
+  // Clothes (Voltra merch)
+  { name: "Voltra Logo Hoodie", slug: "voltra-logo-hoodie", category: "Clothes",
+    description: "Heavyweight cotton-blend hoodie with an embroidered Voltra logo.",
+    price_cents: 5499, stock: 40, care_level: "",
+    image_url: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80" },
+  { name: "Voltra Tech Tee", slug: "voltra-tech-tee", category: "Clothes",
+    description: "Soft, breathable crew-neck tee with a minimal front print.",
+    price_cents: 2499, stock: 60, care_level: "",
+    image_url: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80" },
+  { name: "Voltra Trucker Cap", slug: "voltra-trucker-cap", category: "Clothes",
+    description: "Adjustable snapback with a structured front panel and embroidered logo.",
+    price_cents: 1999, stock: 50, care_level: "",
+    image_url: "https://images.unsplash.com/photo-1521369909029-2afed882baee?w=800&q=80" }
 ];
 
 const clear = db.prepare("DELETE FROM products");
